@@ -76,7 +76,7 @@ public class Controller {
         for (int i = 0; i < graphs.size(); i++) {
             ArrayList<Node> aroundNode = allNodeAround(graphs.get(i));
             for (int j = 0; j < aroundNode.size(); j++) {
-                if (aroundNode.get(i).getColor() == yellow) {
+                if (aroundNode.get(j).getColor() == yellow) {
                     return false;
                 }
             }

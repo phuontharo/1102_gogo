@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         button.setBackgroundColor(defaultColor);
-           //             controller.execute(x, y);
+                        controller.execute(x, y);
                         defaultColor = defaultColor == black ? white : black;
                     }
                 });
@@ -60,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             layout.addView(row);
+        }
+    }
+
+    public void onClick(View view) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                board[i][j].setColorButton(yellow);
+            }
         }
     }
 }
