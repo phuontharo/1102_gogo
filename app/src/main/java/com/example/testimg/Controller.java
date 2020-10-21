@@ -17,9 +17,14 @@ public class Controller {
     }
 
 
+
     void execute(int x, int y){
         Node node = table[x][y];
         ArrayList<Node> listNode = allOppositeNode(node);
+        if(listNode.size() == 4){
+            node.setColorButton(yellow);
+            return;
+        }
         for (int i = 0; i < listNode.size(); i++) {
             ArrayList<Node> tempList = new ArrayList<>();
             getGraphs(listNode.get(i), tempList);
@@ -31,12 +36,11 @@ public class Controller {
         }
     }
 
-    // get all Node whith value Opposite
+    // Lấy các Node xung quanh và có giá trị đảo nghịch
     ArrayList<Node> allOppositeNode(Node node) {
         ArrayList<Node> result = new ArrayList<>();
         ArrayList<Node> list = allNodeAround(node);
         int value = node.getColor();
-        System.out.println("This node has value:"+ value);
         for (int i = 0; i < list.size(); i++) {
             Node thisNode = list.get(i);
             if (thisNode.getColor() != yellow && thisNode.getColor() != value) {
@@ -84,7 +88,7 @@ public class Controller {
         return true;
     }
 
-  //   From 1 Node, get 1 Graphs with that Node
+  //   Lấy ra 1 chuỗi các Node gần nhau
     void getGraphs(Node node, ArrayList<Node> result) {
         result.add(node);
         node.setVisited(true);
@@ -100,6 +104,7 @@ public class Controller {
         node.setVisited(false);
     }
 
+    // Đổi giá trị
     void changeValue(ArrayList<Node> graphs, int value) {
         for (int i = 0; i < graphs.size(); i++) {
             graphs.get(i).setColorButton(value);
