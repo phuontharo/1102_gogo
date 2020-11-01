@@ -16,8 +16,6 @@ public class Start extends AppCompatActivity {
 
     public void onClickStart(View view) {
         Intent intent = new Intent(this,information.class);
-        Node n = new Node(1,1,1);
-        intent.putExtra("object", n);
         startActivity(intent);
     }
 

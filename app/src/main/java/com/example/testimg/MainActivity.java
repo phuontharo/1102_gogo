@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     int yellow = Color.YELLOW;
     int defaultColor = black;
 
+    ImageView player1_avatar, player2_avatar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +32,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setting() {
+        player1_avatar = findViewById(R.id.avatar_player1);
+        player2_avatar = findViewById(R.id.avatar_player2);
         board = new Node[10][10];
         layout = findViewById(R.id.table);
         controller = new Controller(board);
+        Bundle bundle = getIntent().getExtras();
+        Player player1 = (Player) bundle.get("player1");
+        Player player2 = (Player)bundle.get("player2");
+        player1_avatar.setImageResource(player1.getImgId());
+        player2_avatar.setImageResource(player2.getImgId());
+
         Init();
     }
 
