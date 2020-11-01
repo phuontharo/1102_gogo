@@ -1,22 +1,18 @@
 package com.example.testimg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class information extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Information extends AppCompatActivity {
     RadioGroup group;
     ImageView avatar;
     EditText inputName;
@@ -29,7 +25,6 @@ public class information extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-        getSupportActionBar().hide();
         setUp();
     }
 
@@ -63,7 +58,6 @@ public class information extends AppCompatActivity {
             }
         });
         settingScreenInformation(playerInfor[0]);
-
     }
 
     private ArrayList<Integer> getListAvatar() {
@@ -91,18 +85,21 @@ public class information extends AppCompatActivity {
         }
     }
 
+    // create new player from information in screen
     Player getInforScreen() {
         String name = inputName.getText().toString().trim();
         int imgId = listImg.get(possIMG);
         return new Player(name, imgId, possIMG);
     }
 
+    // go to pre picture
     public void onClickPre(View view) {
         possIMG = possIMG == 0 ? possIMG : possIMG - 1;
         avatar.setImageResource(listImg.get(possIMG));
         System.out.println("Poss Pre : " + possIMG);
     }
 
+    // go to next picture
     public void onClickNext(View view) {
         possIMG = possIMG == listImg.size() - 1 ? possIMG : possIMG + 1;
         avatar.setImageResource(listImg.get(possIMG));
@@ -110,6 +107,7 @@ public class information extends AppCompatActivity {
     }
 
 
+    // transmit information of player
     public void onClickSave(View view) {
         Player p = getInforScreen();
         if (player1.isChecked()) {

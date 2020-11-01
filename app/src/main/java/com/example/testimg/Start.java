@@ -1,10 +1,10 @@
 package com.example.testimg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Start extends AppCompatActivity {
 
@@ -15,7 +15,7 @@ public class Start extends AppCompatActivity {
     }
 
     public void onClickStart(View view) {
-        Intent intent = new Intent(this,information.class);
+        Intent intent = new Intent(this, Information.class);
         startActivity(intent);
     }
 

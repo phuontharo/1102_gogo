@@ -1,7 +1,6 @@
 package com.example.testimg;
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ public class Controller {
     public Controller(Node[][] table) {
         this.table = table;
     }
-
-
 
     int execute(int x, int y){
         Node node = table[x][y];

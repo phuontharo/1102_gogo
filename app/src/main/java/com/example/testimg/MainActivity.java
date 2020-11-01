@@ -1,20 +1,15 @@
 package com.example.testimg;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     int defaultColor = black;
     int hpLost = 0;
     ImageView player1_avatar, player2_avatar;
-    Button buttonHp1, buttonHp2;
+    ProgressBar progressBar1, progressBar2;
+    // Button buttonHp1, buttonHp2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setting() {
-        buttonHp1 = findViewById(R.id.buttonHp1);
-        buttonHp2 = findViewById(R.id.buttonHp2);
+        progressBar1 = findViewById(R.id.progressBar1);
+        progressBar2 = findViewById(R.id.progressBar2);
+//        buttonHp1 = findViewById(R.id.buttonHp1);
+//        buttonHp2 = findViewById(R.id.buttonHp2);
         player1_avatar = findViewById(R.id.avatar_player1);
         player2_avatar = findViewById(R.id.avatar_player2);
         board = new Node[10][10];
@@ -51,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         Player player2 = (Player) bundle.get("player2");
         player1_avatar.setImageResource(player1.getImgId());
         player2_avatar.setImageResource(player2.getImgId());
-
         Init();
     }
 
@@ -83,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 board[i][j] = node;
                 row.addView(button);
             }
-
             layout.addView(row);
         }
     }
@@ -91,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
     void subHP() {
         if (defaultColor == black) {
-            changeSizeHP(buttonHp1);
+            changeSizeHP(progressBar1);
         } else if (defaultColor == white) {
-            changeSizeHP(buttonHp2);
+            changeSizeHP(progressBar2);
         }
     }
 
@@ -103,20 +99,23 @@ public class MainActivity extends AppCompatActivity {
                 board[i][j].setColorButton(yellow);
             }
         }
-        setOriginalHp(buttonHp1);
-        setOriginalHp(buttonHp2);
+        progressBar1.setProgress(100);
+        progressBar2.setProgress(100);
+//        setOriginalHp(buttonHp1);
+//        setOriginalHp(buttonHp2);
     }
 
-    void changeSizeHP(Button butt) {
-        ConstraintLayout.LayoutParams param = null;
-        param = (ConstraintLayout.LayoutParams) butt.getLayoutParams();
-        param.width -= hpLost * 10;
-        butt.setLayoutParams(param);
+    void changeSizeHP(ProgressBar pb) {
+        pb.setProgress(pb.getProgress() - hpLost * 10);
+//        ConstraintLayout.LayoutParams param = null;
+//        param = (ConstraintLayout.LayoutParams) butt.getLayoutParams();
+//   param.width -= hpLost * 10;
+//     butt.setLayoutParams(param);
     }
 
-    void setOriginalHp(Button butt) {
-        ConstraintLayout.LayoutParams param = (ConstraintLayout.LayoutParams) butt.getLayoutParams();
-        param.width = 300;
-        butt.setLayoutParams(param);
-    }
+//    void setOriginalHp(Button butt) {
+//        ConstraintLayout.LayoutParams param = (ConstraintLayout.LayoutParams) butt.getLayoutParams();
+//        param.width = 300;
+//        butt.setLayoutParams(param);
+//    }
 }
