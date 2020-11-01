@@ -20,11 +20,12 @@ public class Controller {
 
     void execute(int x, int y){
         Node node = table[x][y];
+        System.out.println("Node at :"  +x + ":"+ y);
         ArrayList<Node> listNode = allOppositeNode(node);
-        if(listNode.size() == 4){
-            node.setColorButton(yellow);
-            return;
-        }
+//        if(listNode.size() == 4){
+//            node.setColorButton(yellow);
+//            return;
+//        }
         for (int i = 0; i < listNode.size(); i++) {
             ArrayList<Node> tempList = new ArrayList<>();
             getGraphs(listNode.get(i), tempList);
@@ -47,6 +48,7 @@ public class Controller {
                 result.add(thisNode);
             }
         }
+        System.out.println("Oposite : "+ node.getX()+ ":"+ node.getX() + "size : "+ result.size());
         return result;
 
 
@@ -85,6 +87,7 @@ public class Controller {
                 }
             }
         }
+        System.out.println("true");
         return true;
     }
 

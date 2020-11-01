@@ -3,7 +3,9 @@ package com.example.testimg;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.Button;
 
-public class Node {
+import java.io.Serializable;
+
+public class Node implements Serializable {
     private int id;
     private int x;
     private int y;
@@ -26,6 +28,11 @@ public class Node {
         this.isVisited = isVisited;
     }
 
+    public Node(int id, int x, int y) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+    }
     public int getColor(){
         ColorDrawable color = (ColorDrawable) button.getBackground();
         return color.getColor();
