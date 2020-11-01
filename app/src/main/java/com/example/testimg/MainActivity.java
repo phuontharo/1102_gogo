@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         Player player2 = (Player) bundle.get("player2");
         player1_avatar.setImageResource(player1.getImgId());
         player2_avatar.setImageResource(player2.getImgId());
+        progressBar1.setProgress(100);
+        progressBar2.setProgress(100);
         Init();
     }
 
