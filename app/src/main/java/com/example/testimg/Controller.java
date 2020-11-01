@@ -18,7 +18,7 @@ public class Controller {
 
 
 
-    void execute(int x, int y){
+    int execute(int x, int y){
         Node node = table[x][y];
         System.out.println("Node at :"  +x + ":"+ y);
         ArrayList<Node> listNode = allOppositeNode(node);
@@ -32,9 +32,12 @@ public class Controller {
             boolean isDeath = checkGraphsDeath(tempList);
             if (isDeath) {
                 changeValue(tempList, yellow);
+                System.out.println("HPPP : "+ tempList.size());
+                return tempList.size();
             }
-
         }
+        return 0;
+
     }
 
     // Lấy các Node xung quanh và có giá trị đảo nghịch
