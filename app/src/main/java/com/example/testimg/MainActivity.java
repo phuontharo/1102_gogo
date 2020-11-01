@@ -3,6 +3,8 @@ package com.example.testimg;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,21 +26,20 @@ public class MainActivity extends AppCompatActivity {
     int hpLost = 0;
     ImageView player1_avatar, player2_avatar;
     ProgressBar progressBar1, progressBar2;
-    // Button buttonHp1, buttonHp2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
         setting();
     }
 
     void setting() {
         progressBar1 = findViewById(R.id.progressBar1);
         progressBar2 = findViewById(R.id.progressBar2);
-//        buttonHp1 = findViewById(R.id.buttonHp1);
-//        buttonHp2 = findViewById(R.id.buttonHp2);
         player1_avatar = findViewById(R.id.avatar_player1);
         player2_avatar = findViewById(R.id.avatar_player2);
         board = new Node[10][10];
@@ -101,21 +102,9 @@ public class MainActivity extends AppCompatActivity {
         }
         progressBar1.setProgress(100);
         progressBar2.setProgress(100);
-//        setOriginalHp(buttonHp1);
-//        setOriginalHp(buttonHp2);
     }
 
     void changeSizeHP(ProgressBar pb) {
         pb.setProgress(pb.getProgress() - hpLost * 10);
-//        ConstraintLayout.LayoutParams param = null;
-//        param = (ConstraintLayout.LayoutParams) butt.getLayoutParams();
-//   param.width -= hpLost * 10;
-//     butt.setLayoutParams(param);
     }
-
-//    void setOriginalHp(Button butt) {
-//        ConstraintLayout.LayoutParams param = (ConstraintLayout.LayoutParams) butt.getLayoutParams();
-//        param.width = 300;
-//        butt.setLayoutParams(param);
-//    }
 }
