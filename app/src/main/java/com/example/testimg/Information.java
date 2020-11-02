@@ -1,6 +1,8 @@
 package com.example.testimg;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,12 +16,16 @@ import java.util.ArrayList;
 
 public class Information extends AppCompatActivity {
     int currentPlayer = 0;
-    ImageView avatar;
+    private static int possIMG = 0, preIMG, nextIMG;
     EditText inputName;
-    private static int possIMG = 0;
+    ImageView avatar, btnPre, btnNext;
     ArrayList<Integer> listImg;
     Player[] playerInfor;
     Intent intent;
+    private Bitmap bmp;
+    private ImageView imageView;
+    private ImageView imgbg;
+    private Bitmap operation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,9 @@ public class Information extends AppCompatActivity {
         setUp();
     }
 
-
     private void setUp() {
+        btnPre = findViewById(R.id.imagePre);
+        btnNext = findViewById(R.id.imageNext);
         avatar = findViewById(R.id.avatar);
         inputName = findViewById(R.id.name);
         listImg = getListAvatar();
@@ -55,6 +62,7 @@ public class Information extends AppCompatActivity {
         inputName.setText(player.getName());
         avatar.setImageResource(player.getImgId());
         possIMG = player.getPositionImgInList();
+        setImageForButton();
     }
 
     private ArrayList<Integer> getListAvatar() {
@@ -74,18 +82,49 @@ public class Information extends AppCompatActivity {
         return new Player(name, imgId, possIMG);
     }
 
+    private void setImageForButton() {
+        preIMG = possIMG == 0 ? listImg.size() - 1 : possIMG - 1;
+        btnPre.setImageResource(listImg.get(preIMG));
+        nextIMG = possIMG == listImg.size() - 1 ? 0 : possIMG + 1;
+        btnNext.setImageResource(listImg.get(nextIMG));
+    }
+
     // go to pre picture
     public void onClickPre(View view) {
         possIMG = possIMG == 0 ? possIMG : possIMG - 1;
         avatar.setImageResource(listImg.get(possIMG));
-        System.out.println("Poss Pre : " + possIMG);
+        setImageForButton();
+
     }
 
     // go to next picture
     public void onClickNext(View view) {
         possIMG = possIMG == listImg.size() - 1 ? possIMG : possIMG + 1;
         avatar.setImageResource(listImg.get(possIMG));
-        System.out.println("Poss Next : " + possIMG);
+        setImageForButton();
+    }
+
+    public void bright() {
+        //create bitmap
+        operation = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+        for (int i = 0; i < bmp.getWidth(); i++) {
+            for (int j = 0; j < bmp.getHeight(); j++) {
+                // set px in picture
+                int p = bmp.getPixel(i, j);
+                int r = Color.red(p);
+                int g = Color.green(p);
+                int b = Color.blue(p);
+                int alpha = Color.alpha(p);
+                // change color
+//                r =  r - 50;
+//                g =  g - 50;
+//                b =  b - 50;
+                alpha = alpha - 150;
+                // set picture
+                operation.setPixel(i, j, Color.argb(alpha, r, g, b));
+            }
+        }
+        imgbg.setImageBitmap(operation);
     }
 
     // transmit information of player

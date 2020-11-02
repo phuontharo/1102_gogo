@@ -5,46 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#9DC6EC"
+    app:layoutDescription="@xml/activity_information_scene"
     tools:context=".Information">
-
-    <Button
-        android:id="@+id/btn_pre"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="58dp"
-        android:layout_height="92dp"
-        android:background="@drawable/custom_button"
-        android:onClick="onClickPre"
-        app:layout_constraintBottom_toBottomOf="@+id/avatar"
-        app:layout_constraintEnd_toStartOf="@+id/avatar"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/avatar" />
-
-    <Button
-        android:id="@+id/btn_next"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="55dp"
-        android:layout_height="92dp"
-        android:background="@drawable/custom_button"
-        android:onClick="onClickNext"
-        android:rotationX="360"
-        android:rotationY="180"
-        app:layout_constraintBottom_toBottomOf="@+id/avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="@+id/avatar" />
-
-    <ImageView
-        android:id="@+id/avatar"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.25"
-        app:srcCompat="@drawable/daxua" />
 
     <EditText
         android:id="@+id/name"
@@ -88,5 +50,67 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.151" />
+
+    <ImageView
+        android:id="@+id/imagePre"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="onClickPre"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/avatar" />
+
+    <ImageView
+        android:id="@+id/imageNext"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="onClickNext"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="@+id/avatar" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <ImageButton
+        android:id="@+id/btnPreMask"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="onClickPre"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/avatar" />
+
+    <ImageButton
+        android:id="@+id/btnNextMask"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="onClickNext"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="@+id/avatar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
