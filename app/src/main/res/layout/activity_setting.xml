@@ -11,6 +11,8 @@
         android:id="@+id/isEffect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:switchMinWidth="50dp"
+        android:switchPadding="5dp"
         android:text="Effect sound"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -25,6 +27,8 @@
         android:id="@+id/isMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:switchMinWidth="50dp"
+        android:switchPadding="5dp"
         android:text="Music"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -37,7 +41,7 @@
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="205dp"
-        android:layout_height="116dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,6 +80,7 @@
         android:id="@+id/button4"
         android:layout_width="113dp"
         android:layout_height="56dp"
+        android:onClick="saveOnClick"
         android:text="Save"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,5 +116,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/isEffect"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="54dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="backOnClick"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/pre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
