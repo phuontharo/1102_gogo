@@ -7,21 +7,19 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class Information extends AppCompatActivity {
-    RadioGroup group;
+    int currentPlayer = 0;
     ImageView avatar;
     EditText inputName;
     private static int possIMG = 0;
     ArrayList<Integer> listImg;
-    RadioButton player1, player2;
     Player[] playerInfor;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,16 @@ public class Information extends AppCompatActivity {
     }
 
 
-    void preRegisterInfor() {
+    private void setUp() {
+        avatar = findViewById(R.id.avatar);
+        inputName = findViewById(R.id.name);
+        listImg = getListAvatar();
+        preRegisterInfor();
+        setScreenInformation(playerInfor[0]);
+        intent = new Intent(this, MainActivity.class);
+    }
+
+    private void preRegisterInfor() { // set infor default for player
         playerInfor = new Player[2];
         Player p1 = new Player("Joe", listImg.get(0), 0);
         Player p2 = new Player("Akaly", listImg.get(1), 1);
@@ -42,28 +49,12 @@ public class Information extends AppCompatActivity {
         playerInfor[1] = p2;
     }
 
-    private void settingScreenInformation(Player player) {
+
+    private void setScreenInformation(Player player) {
+        inputName.setHint("Player " + (currentPlayer + 1));
         inputName.setText(player.getName());
         avatar.setImageResource(player.getImgId());
         possIMG = player.getPositionImgInList();
-        System.out.println("Possss : " + possIMG);
-    }
-
-    void setUp() {
-        avatar = findViewById(R.id.avatar);
-        group = findViewById(R.id.groupRadio);
-        player1 = findViewById(R.id.radio1);
-        player2 = findViewById(R.id.radio2);
-        inputName = findViewById(R.id.name);
-        listImg = getListAvatar();
-        preRegisterInfor();
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                getInformation();
-            }
-        });
-        settingScreenInformation(playerInfor[0]);
     }
 
     private ArrayList<Integer> getListAvatar() {
@@ -74,21 +65,6 @@ public class Information extends AppCompatActivity {
             listAvt.add(idImg);
         }
         return listAvt;
-    }
-
-    void setChangePlayer() {
-
-    }
-
-    private void getInformation() {
-        Player p = getInforScreen();
-        if (player1.isChecked()) {
-            playerInfor[1] = p;
-            settingScreenInformation(playerInfor[0]);
-        } else {
-            playerInfor[0] = p;
-            settingScreenInformation(playerInfor[1]);
-        }
     }
 
     // create new player from information in screen
@@ -112,18 +88,16 @@ public class Information extends AppCompatActivity {
         System.out.println("Poss Next : " + possIMG);
     }
 
-
     // transmit information of player
-    public void onClickSave(View view) {
+    public void onClickOk(View view) {
         Player p = getInforScreen();
-        if (player1.isChecked()) {
-            playerInfor[0] = p;
+        if (currentPlayer == 0) {
+            intent.putExtra("player1", playerInfor[currentPlayer]);
+            currentPlayer++;
+            setScreenInformation(playerInfor[1]);
         } else {
-            playerInfor[1] = p;
+            intent.putExtra("player2", playerInfor[currentPlayer]);
+            startActivity(intent);
         }
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("player1", playerInfor[0]);
-        intent.putExtra("player2", playerInfor[1]);
-        startActivity(intent);
     }
 }
