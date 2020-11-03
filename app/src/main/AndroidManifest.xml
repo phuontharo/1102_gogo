@@ -15,6 +15,14 @@
         <activity
             android:name=".WaitGuest"
             android:screenOrientation="landscape">
+
+        </activity>
+        <activity
+            android:name=".Information"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Start"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,14 +30,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Information"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".Start"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape" />
+
+        <service
+            android:name=".BackgroundMusic"
+            android:enabled="true" />
     </application>
 
 </manifest>

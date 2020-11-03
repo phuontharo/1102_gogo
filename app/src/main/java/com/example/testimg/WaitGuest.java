@@ -7,6 +7,8 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import static com.example.testimg.Start.mServ;
+
 public class WaitGuest extends AppCompatActivity {
 
     @Override
@@ -22,4 +24,13 @@ public class WaitGuest extends AppCompatActivity {
                 .replace(R.id.host, hostSetting, hostSetting.getTag())
                 .commit();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+    }
+
 }

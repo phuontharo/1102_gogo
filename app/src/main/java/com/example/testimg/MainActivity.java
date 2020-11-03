@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.testimg.Start.mServ;
+
 public class MainActivity extends AppCompatActivity {
 
     Node[][] board;
@@ -37,7 +39,17 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        setting();
+
+        mServ.setMusic(R.raw.game_background);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
     }
 
     void setting() {

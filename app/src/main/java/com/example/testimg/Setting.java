@@ -10,6 +10,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.testimg.Start.mServ;
+
 public class Setting extends AppCompatActivity {
     Spinner spinner;
 
@@ -28,6 +30,14 @@ public class Setting extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
     }
 
     public void saveOnClick(View view) {
