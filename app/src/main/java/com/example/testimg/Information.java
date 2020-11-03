@@ -3,6 +3,7 @@ package com.example.testimg;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -22,9 +23,6 @@ public class Information extends AppCompatActivity {
     ArrayList<Integer> listImg;
     Player[] playerInfor;
     Intent intent;
-    private Bitmap bmp;
-    private ImageView imageView;
-    private ImageView imgbg;
     private Bitmap operation;
 
     @Override
@@ -85,27 +83,30 @@ public class Information extends AppCompatActivity {
     private void setImageForButton() {
         preIMG = possIMG == 0 ? listImg.size() - 1 : possIMG - 1;
         btnPre.setImageResource(listImg.get(preIMG));
+        btnPre.setImageBitmap(effectForPicture(((BitmapDrawable) btnPre.getDrawable()).getBitmap()));
         nextIMG = possIMG == listImg.size() - 1 ? 0 : possIMG + 1;
         btnNext.setImageResource(listImg.get(nextIMG));
+        btnNext.setImageBitmap(effectForPicture(((BitmapDrawable) btnNext.getDrawable()).getBitmap()));
     }
 
     // go to pre picture
     public void onClickPre(View view) {
-        possIMG = possIMG == 0 ? possIMG : possIMG - 1;
+        possIMG = possIMG == 0 ? listImg.size() - 1 : possIMG - 1;
         avatar.setImageResource(listImg.get(possIMG));
         setImageForButton();
-
     }
 
     // go to next picture
     public void onClickNext(View view) {
-        possIMG = possIMG == listImg.size() - 1 ? possIMG : possIMG + 1;
+        possIMG = possIMG == listImg.size() - 1 ? 0 : possIMG + 1;
         avatar.setImageResource(listImg.get(possIMG));
         setImageForButton();
     }
 
-    public void bright() {
+    public Bitmap effectForPicture(Bitmap bmp) {
         //create bitmap
+        Float darkness = 2f;
+        int opacity = 50;
         operation = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
         for (int i = 0; i < bmp.getWidth(); i++) {
             for (int j = 0; j < bmp.getHeight(); j++) {
@@ -116,26 +117,26 @@ public class Information extends AppCompatActivity {
                 int b = Color.blue(p);
                 int alpha = Color.alpha(p);
                 // change color
-//                r =  r - 50;
-//                g =  g - 50;
-//                b =  b - 50;
-                alpha = alpha - 150;
+                r = r / darkness < 0 ? 0 : (int) (r / darkness);
+                g = g / darkness < 0 ? 0 : (int) (g / darkness);
+                b = b / darkness < 0 ? 0 : (int) (b / darkness);
+                alpha = alpha - opacity < 0 ? 0 : alpha - opacity;
                 // set picture
                 operation.setPixel(i, j, Color.argb(alpha, r, g, b));
             }
         }
-        imgbg.setImageBitmap(operation);
+        return operation;
     }
 
     // transmit information of player
     public void onClickOk(View view) {
         Player p = getInforScreen();
         if (currentPlayer == 0) {
-            intent.putExtra("player1", playerInfor[currentPlayer]);
+            intent.putExtra("player1", playerInfor[currentPlayer] = p);
             currentPlayer++;
             setScreenInformation(playerInfor[1]);
         } else {
-            intent.putExtra("player2", playerInfor[currentPlayer]);
+            intent.putExtra("player2", playerInfor[currentPlayer] = p);
             startActivity(intent);
         }
     }

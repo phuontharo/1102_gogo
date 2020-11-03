@@ -5,6 +5,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 public class WaitGuest extends AppCompatActivity {
 
@@ -15,6 +16,10 @@ public class WaitGuest extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_wait_guest);
+        HostSetting hostSetting = new HostSetting();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.host, hostSetting, hostSetting.getTag())
+                .commit();
     }
-
 }

@@ -34,6 +34,8 @@ public class Start extends AppCompatActivity {
     }
 
     public void onClickLan(View view) {
+        Intent intent = new Intent(this, WaitGuest.class);
+        startActivity(intent);
     }
 
     public void onClickSetting(View view) {

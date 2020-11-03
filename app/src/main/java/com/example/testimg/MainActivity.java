@@ -1,5 +1,6 @@
 package com.example.testimg;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int hpLost = 0;
     ImageView player1_avatar, player2_avatar;
     ProgressBar progressBar1, progressBar2;
+    TextView textViewName1, textViewName2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,16 @@ public class MainActivity extends AppCompatActivity {
         progressBar2 = findViewById(R.id.progressBar2);
         player1_avatar = findViewById(R.id.avatar_player1);
         player2_avatar = findViewById(R.id.avatar_player2);
+        textViewName1 = findViewById(R.id.textViewName1);
+        textViewName2 = findViewById(R.id.textViewName2);
         board = new Node[10][10];
         layout = findViewById(R.id.table);
         controller = new Controller(board);
         Bundle bundle = getIntent().getExtras();
         Player player1 = (Player) bundle.get("player1");
         Player player2 = (Player) bundle.get("player2");
+        textViewName1.setText(player1.getName());
+        textViewName2.setText(player2.getName());
         player1_avatar.setImageResource(player1.getImgId());
         player2_avatar.setImageResource(player2.getImgId());
         progressBar1.setProgress(100);
@@ -96,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick(View view) {
+    public void newGameOnClick(View view) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 board[i][j].setColorButton(yellow);
@@ -104,6 +111,11 @@ public class MainActivity extends AppCompatActivity {
         }
         progressBar1.setProgress(100);
         progressBar2.setProgress(100);
+    }
+
+    public void quitOnClick(View view) {
+        Intent intent = new Intent(this, Start.class);
+        startActivity(intent);
     }
 
     void changeSizeHP(ProgressBar pb) {

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="500">
+        <KeyFrameSet></KeyFrameSet>
+        <OnClick motion:targetId="@id/btn_host" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/btn_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toTopOf="@+id/btn_guest"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.501"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/divider_bottom">
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="6sp" />
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="#000000" />
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#D3D3D3" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/btn_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toTopOf="@+id/divider_top"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.501"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/btn_host"
+            motion:layout_constraintVertical_bias="0.0">
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="6sp" />
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="#000000" />
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#D3D3D3" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/host"
+            android:layout_width="1dp"
+            android:layout_height="250dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/btn_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toTopOf="@+id/divider_bottom"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.501"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#00FFFFFF" />
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="14sp" />
+            <CustomAttribute
+                motion:attributeName="enabled"
+                motion:customBoolean="false" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/btn_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.501"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/divider_top">
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="6sp" />
+            <CustomAttribute
+                motion:attributeName="enabled"
+                motion:customBoolean="true" />
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#D3D3D3" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/divider_bottom"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.2" />
+        <Constraint
+            android:id="@+id/fragmentGuest"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/btn_guest"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.499"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/divider_bottom"
+            motion:layout_constraintVertical_bias="0.0" />
+        <Constraint
+            android:id="@+id/fragmentHost"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            motion:layout_constraintBottom_toTopOf="@+id/divider_top"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/divider_bottom"
+            motion:layout_constraintVertical_bias="0.0" />
+        <Constraint
+            android:id="@+id/host"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/end_c">
+        <Constraint
+            android:id="@+id/btn_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.501"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/divider_top">
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#D3D3D3" />
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="6sp" />
+            <CustomAttribute
+                motion:attributeName="enabled"
+                motion:customBoolean="true" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/btn_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toTopOf="@+id/divider_bottom"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.501"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#00FFFFFF" />
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customDimension="14sp" />
+            <CustomAttribute
+                motion:attributeName="enabled"
+                motion:customBoolean="false" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/divider_bottom"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.2" />
+        <Constraint
+            android:id="@+id/fragmentHost"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            motion:layout_constraintBottom_toTopOf="@+id/divider_top"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.499"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/divider_bottom"
+            motion:layout_constraintVertical_bias="0.0" />
+        <Constraint
+            android:id="@+id/fragmentGuest"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/btn_guest"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.499"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/divider_bottom"
+            motion:layout_constraintVertical_bias="0.0" />
+        <Constraint
+            android:id="@+id/host"
+            android:layout_width="1dp"
+            android:layout_height="250dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+    <Transition
+        android:id="@+id/guestClickTransition"
+        motion:constraintSetEnd="@+id/end_c"
+        motion:constraintSetStart="@+id/start">
+        <OnClick motion:targetId="@id/btn_guest" />
+    </Transition>
+    <Transition
+        android:id="@+id/guestClickTransition2"
+        motion:constraintSetEnd="@+id/end_c"
+        motion:constraintSetStart="@+id/end">
+        <OnClick motion:targetId="@id/btn_guest" />
+    </Transition>
+    <Transition
+        android:id="@+id/hostClickTransition2"
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@+id/end_c">
+        <OnClick motion:targetId="@id/btn_host" />
+    </Transition>
+</MotionScene>
