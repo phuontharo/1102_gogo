@@ -11,6 +11,7 @@ public class BackgroundMusic extends Service implements MediaPlayer.OnErrorListe
     private final IBinder mBinder = new ServiceBinder();
     MediaPlayer mPlayer;
     private int length = 0;
+    int musicID = R.raw.background;
 
     public BackgroundMusic() {
     }
@@ -23,7 +24,7 @@ public class BackgroundMusic extends Service implements MediaPlayer.OnErrorListe
     @Override
     public void onCreate() {
         super.onCreate();
-        mPlayer = MediaPlayer.create(this, R.raw.background);
+        mPlayer = MediaPlayer.create(this, musicID);
         mPlayer.setOnErrorListener(this);
         if (mPlayer != null) {
             mPlayer.setLooping(true);
@@ -64,11 +65,11 @@ public class BackgroundMusic extends Service implements MediaPlayer.OnErrorListe
     }
 
     public void setMusic(int uri) {
-        mPlayer = MediaPlayer.create(this, uri);
+        musicID = uri;
     }
 
     public void startMusic() {
-        mPlayer = MediaPlayer.create(this, R.raw.background);
+        mPlayer = MediaPlayer.create(this, musicID);
         mPlayer.setOnErrorListener(this);
 
         if (mPlayer != null) {
