@@ -1,6 +1,7 @@
 package com.example.testimg;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -10,11 +11,11 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.testimg.Start.mServ;
+import static com.example.testimg.Start.musicBackgroundService;
 
 public class Setting extends AppCompatActivity {
     Spinner spinner;
-
+    int buttonEffect = R.raw.choose_sound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +36,23 @@ public class Setting extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mServ != null) {
-            mServ.resumeMusic();
+        if (musicBackgroundService != null) {
+            musicBackgroundService.resumeMusic();
         }
     }
 
     public void saveOnClick(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         Intent intent = new Intent(this, Start.class);
         startActivity(intent);
     }
 
     public void backOnClick(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         Intent intent = new Intent(this, Start.class);
         startActivity(intent);
     }

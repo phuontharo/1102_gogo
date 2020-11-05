@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -14,21 +15,21 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Start extends AppCompatActivity {
-    public static BackgroundMusic mServ;
+    public static BackgroundMusic musicBackgroundService;
     HomeWatcher mHomeWatcher;
+    private int buttonEffect = R.raw.menu_sound;
 
     //setting music
-    private boolean mIsBound = false;
-    //  private BackgroundMusic mServ;
+    private boolean mIsBound = false; // link with activity
     private ServiceConnection Scon = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName name, IBinder
                 binder) {
-            mServ = ((BackgroundMusic.ServiceBinder) binder).getService();
+            musicBackgroundService = ((BackgroundMusic.ServiceBinder) binder).getService();
         }
 
         public void onServiceDisconnected(ComponentName name) {
-            mServ = null;
+            musicBackgroundService = null;
         }
     };
 
@@ -46,20 +47,20 @@ public class Start extends AppCompatActivity {
         music.setClass(this, BackgroundMusic.class);
         startService(music);
 
-        // home - end music
+        // home button - end music
         mHomeWatcher = new HomeWatcher(this);
         mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
             @Override
             public void onHomePressed() {
-                if (mServ != null) {
-                    mServ.pauseMusic();
+                if (musicBackgroundService != null) {
+                    musicBackgroundService.pauseMusic();
                 }
             }
 
             @Override
             public void onHomeLongPressed() {
-                if (mServ != null) {
-                    mServ.pauseMusic();
+                if (musicBackgroundService != null) {
+                    musicBackgroundService.pauseMusic();
                 }
             }
         });
@@ -69,8 +70,8 @@ public class Start extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mServ != null) {
-            mServ.resumeMusic();
+        if (musicBackgroundService != null) {
+            musicBackgroundService.resumeMusic();
         }
     }
 
@@ -93,58 +94,67 @@ public class Start extends AppCompatActivity {
             isScreenOn = pm.isScreenOn();
         }
         if (!isScreenOn) {
-            if (mServ != null) {
-                mServ.pauseMusic();
+            if (musicBackgroundService != null) {
+                musicBackgroundService.pauseMusic();
             }
         }
     }
 
-    void doBindService() {
+    void doBindService() { // lien ket service
         bindService(new Intent(this, BackgroundMusic.class),
                 Scon, Context.BIND_AUTO_CREATE);
         mIsBound = true;
     }
 
-    void doUnbindService() {
+    void doUnbindService() { // destroy
         if (mIsBound) {
             unbindService(Scon);
             mIsBound = false;
         }
     }
 
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        View decorView = getWindow().getDecorView();
-//        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-//        decorView.setSystemUiVisibility(uiOptions);
-//    }
-
     public void onClickStart(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         Intent intent = new Intent(this, Information.class);
         startActivity(intent);
     }
 
     public void onClickLan(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         Intent intent = new Intent(this, WaitGuest.class);
         startActivity(intent);
     }
 
     public void onClickSetting(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         Intent intent = new Intent(this, Setting.class);
         startActivity(intent);
     }
 
     public void onClickQuit(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         finish();
         System.exit(0);
     }
 
     public void muteOnClick(View view) {
-        if (mServ != null) {
-            mServ.pauseMusic();
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+        if (musicBackgroundService == null) return;
+        if (musicBackgroundService.isMusicMute()) {
+            musicBackgroundService.isPlaying = true;
+            musicBackgroundService.resumeMusic();
+        } else {
+            musicBackgroundService.isPlaying = false;
+            musicBackgroundService.pauseMusic();
         }
     }
 }

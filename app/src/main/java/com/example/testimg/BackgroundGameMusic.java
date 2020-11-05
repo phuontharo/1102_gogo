@@ -7,15 +7,14 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.widget.Toast;
 
-public class BackgroundMusic extends Service implements MediaPlayer.OnErrorListener {
+public class BackgroundGameMusic extends Service implements MediaPlayer.OnErrorListener {
     private final IBinder mBinder = new ServiceBinder();
     MediaPlayer mPlayer;
-    private int length = 0;
-    int musicID = R.raw.background;
+    int musicID = R.raw.game_background;
     int leftVol = 50, rightVol = 50;
-    boolean isPlaying = true;
+    private int length = 0;
 
-    public BackgroundMusic() {
+    public BackgroundGameMusic() {
     }
 
     @Override
@@ -77,11 +76,9 @@ public class BackgroundMusic extends Service implements MediaPlayer.OnErrorListe
     }
 
     public boolean isMusicMute() {
-//        if (leftVol == 0 && rightVol == 0)
-//            return true;
-//        else return false;
-        if (isPlaying == true) return false;
-        else return true;
+        if (leftVol == 0 && rightVol == 0)
+            return true;
+        else return false;
     }
 
     public void startMusic() {
@@ -130,9 +127,8 @@ public class BackgroundMusic extends Service implements MediaPlayer.OnErrorListe
     }
 
     public class ServiceBinder extends Binder {
-        BackgroundMusic getService() {
-            return BackgroundMusic.this;
+        BackgroundGameMusic getService() {
+            return BackgroundGameMusic.this;
         }
     }
 }
-

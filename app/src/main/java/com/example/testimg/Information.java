@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +25,9 @@ public class Information extends AppCompatActivity {
     Player[] playerInfor;
     Intent intent;
     private Bitmap operation;
+
+    int buttonEffect = R.raw.choose_sound;
+    int slideSound = R.raw.slide_sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,9 @@ public class Information extends AppCompatActivity {
 
     // go to pre picture
     public void onClickPre(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, slideSound);
+        mPlayer.start();
+
         possIMG = possIMG == 0 ? listImg.size() - 1 : possIMG - 1;
         avatar.setImageResource(listImg.get(possIMG));
         setImageForButton();
@@ -98,6 +105,9 @@ public class Information extends AppCompatActivity {
 
     // go to next picture
     public void onClickNext(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, slideSound);
+        mPlayer.start();
+
         possIMG = possIMG == listImg.size() - 1 ? 0 : possIMG + 1;
         avatar.setImageResource(listImg.get(possIMG));
         setImageForButton();
@@ -130,6 +140,9 @@ public class Information extends AppCompatActivity {
 
     // transmit information of player
     public void onClickOk(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         Player p = getInforScreen();
         if (currentPlayer == 0) {
             intent.putExtra("player1", playerInfor[currentPlayer] = p);

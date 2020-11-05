@@ -1,11 +1,13 @@
 package com.example.testimg;
 
-import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,10 +23,11 @@ public class HostSetting extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    int buttonEffect = R.raw.choose_sound;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Spinner spinnerTime, spinnerOvertime, spinnerSizeOfBooard;
 
     public HostSetting() {
         // Required empty public constructor
@@ -63,9 +66,13 @@ public class HostSetting extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_host_setting, container, false);
         Button buttonCreate = view.findViewById(R.id.buttonCreate);
+        setSpinners(view);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MediaPlayer mPlayer = MediaPlayer.create(getActivity(), buttonEffect);
+                mPlayer.start();
+
                 WaittingOpponent waitOpponent = new WaittingOpponent();
                 FragmentManager manager = getFragmentManager();
 
@@ -78,14 +85,31 @@ public class HostSetting extends Fragment {
 //                transaction.commit();
             }
         });
-        Button buttonPlay = view.findViewById(R.id.buttonPlay);
-        buttonPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Information.class);
-                startActivity(intent);
-            }
-        });
+//        Button buttonPlay = view.findViewById(R.id.buttonPlay);
+//        buttonPlay.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), Information.class);
+//                startActivity(intent);
+//            }
+//        });
         return view;
+    }
+
+    private void setSpinners(View view) {
+        spinnerTime = view.findViewById(R.id.spinnerTime);
+        spinnerOvertime = view.findViewById(R.id.spinnerSubTime);
+        spinnerSizeOfBooard = view.findViewById(R.id.spinnerSizeOfBoard);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.board_size_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSizeOfBooard.setAdapter(adapter);
+        adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.sub_time, android.R.layout.simple_spinner_item);
+        spinnerOvertime.setAdapter(adapter);
+        adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.main_time, android.R.layout.simple_spinner_item);
+        spinnerTime.setAdapter(adapter);
     }
 }

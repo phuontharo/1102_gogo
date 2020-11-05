@@ -7,7 +7,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import static com.example.testimg.Start.mServ;
+import static com.example.testimg.Start.musicBackgroundService;
 
 public class WaitGuest extends AppCompatActivity {
 
@@ -28,8 +28,8 @@ public class WaitGuest extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mServ != null) {
-            mServ.resumeMusic();
+        if (musicBackgroundService != null) {
+            musicBackgroundService.resumeMusic();
         }
     }
 

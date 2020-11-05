@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.testimg.Start.musicBackgroundService;
+
 public class MainActivity extends AppCompatActivity {
     Node[][] board;
     TableLayout layout;
@@ -34,22 +37,23 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar1, progressBar2;
     TextView textViewName1, textViewName2;
 
+    int buttonEffect = R.raw.choose_sound;
+    int playSound = R.raw.play_sound;
 
-    public static BackgroundMusic mServ;
+    BackgroundGameMusic musicBackgroundGameService;
     HomeWatcher mHomeWatcher;
 
     //setting music
     private boolean mIsBound = false;
-    //  private BackgroundMusic mServ;
     private ServiceConnection Scon = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName name, IBinder
                 binder) {
-            mServ = ((BackgroundMusic.ServiceBinder) binder).getService();
+            musicBackgroundGameService = ((BackgroundGameMusic.ServiceBinder) binder).getService();
         }
 
         public void onServiceDisconnected(ComponentName name) {
-            mServ = null;
+            musicBackgroundGameService = null;
         }
     };
 
@@ -60,38 +64,38 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        setting();
 
+        //stop another - music
+        musicBackgroundService.stopMusic();
 
-        //music
-        new BackgroundMusic().setMusic(R.raw.game_background);
+        // musicBackgroundService.setMusic(R.raw.game_background);
         doBindService();
         Intent music = new Intent();
-        music.setClass(this, BackgroundMusic.class);
+        music.setClass(this, BackgroundGameMusic.class);
         startService(music);
         // home - end music
         mHomeWatcher = new HomeWatcher(this);
         mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
             @Override
             public void onHomePressed() {
-                if (mServ != null) {
-                    mServ.pauseMusic();
+                if (musicBackgroundGameService != null) {
+                    musicBackgroundGameService.pauseMusic();
                 }
             }
 
             @Override
             public void onHomeLongPressed() {
-                if (mServ != null) {
-                    mServ.pauseMusic();
+                if (musicBackgroundGameService != null) {
+                    musicBackgroundGameService.pauseMusic();
                 }
             }
         });
         mHomeWatcher.startWatch();
-
-
     }
 
     void doBindService() {
-        bindService(new Intent(this, BackgroundMusic.class),
+        bindService(new Intent(this, BackgroundGameMusic.class),
                 Scon, Context.BIND_AUTO_CREATE);
         mIsBound = true;
     }
@@ -106,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mServ != null) {
-            mServ.resumeMusic();
+        if (musicBackgroundGameService != null) {
+            musicBackgroundGameService.resumeMusic();
         }
     }
 
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         doUnbindService();
         Intent music = new Intent();
-        music.setClass(this, BackgroundMusic.class);
+        music.setClass(this, BackgroundGameMusic.class);
         stopService(music);
     }
 
@@ -130,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
             isScreenOn = pm.isScreenOn();
         }
         if (!isScreenOn) {
-            if (mServ != null) {
-                mServ.pauseMusic();
+            if (musicBackgroundGameService != null) {
+                musicBackgroundGameService.pauseMusic();
             }
         }
     }
@@ -174,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        MediaPlayer mPlayer = MediaPlayer.create(getApplication(), playSound);
+                        mPlayer.start();
+
                         button.setBackgroundColor(defaultColor);
                         hpLost = controller.execute(x, y);
                         if (hpLost > 0) {
@@ -200,6 +207,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGameOnClick(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 board[i][j].setColorButton(yellow);
@@ -210,6 +220,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void quitOnClick(View view) {
+        MediaPlayer mPlayer = MediaPlayer.create(this, buttonEffect);
+        mPlayer.start();
+
+        musicBackgroundGameService.stopMusic();
         Intent intent = new Intent(this, Start.class);
         startActivity(intent);
     }

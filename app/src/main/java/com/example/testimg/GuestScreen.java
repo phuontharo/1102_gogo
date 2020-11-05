@@ -1,6 +1,7 @@
 package com.example.testimg;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ public class GuestScreen extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    int buttonEffect = R.raw.choose_sound;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -64,6 +65,9 @@ public class GuestScreen extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MediaPlayer mPlayer = MediaPlayer.create(getActivity(), buttonEffect);
+                mPlayer.start();
+
                 Intent intent = new Intent(getActivity(), Information.class);
                 startActivity(intent);
             }
