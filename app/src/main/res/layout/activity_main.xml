@@ -9,16 +9,16 @@
     android:background="@drawable/background_chinese"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/avatar_player1"
-        android:layout_width="75dp"
-        android:layout_height="115dp"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar1"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar1"
-        app:layout_constraintStart_toStartOf="@+id/progressBar1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        app:srcCompat="@drawable/cailt" />
+        <ImageView
+            android:id="@+id/avatar_player1"
+            android:layout_width="75dp"
+            android:layout_height="115dp"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar1"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar1"
+            app:layout_constraintStart_toStartOf="@+id/progressBar1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.75"
+            app:srcCompat="@drawable/cailt" />
 
     <ImageView
         android:id="@+id/avatar_player2"
@@ -51,9 +51,11 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/game_button"
         android:text="Resign"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/table"
         app:layout_constraintStart_toEndOf="@+id/divider"
@@ -63,9 +65,11 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="3dp"
+        android:background="@drawable/game_button"
         android:text="Pass"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/table"
         app:layout_constraintStart_toEndOf="@+id/divider"
@@ -74,12 +78,14 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/game_button"
         android:onClick="newGameOnClick"
         android:rotation="-90"
         android:text="New game"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +135,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textTime1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="04:32"
@@ -139,7 +145,7 @@
         app:layout_constraintTop_toBottomOf="@+id/avatar_player1" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textTime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="03:59"
@@ -176,11 +182,13 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:background="@drawable/game_button"
         android:onClick="quitOnClick"
         android:rotation="-90"
         android:text="Quit game"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent"

@@ -78,7 +78,7 @@ public class HostSetting extends Fragment {
 
                 //  FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 manager.beginTransaction()
-                        .replace(R.id.host, waitOpponent).addToBackStack(null)
+                        .replace(R.id.host, waitOpponent)
                         .commit();
 //                transaction                        .replace(R.id.layoutHost, waitOpponent);
 //                transaction.addToBackStack(null);

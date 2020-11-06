@@ -15,9 +15,10 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Start extends AppCompatActivity {
+    private int buttonEffect = R.raw.menu_sound;
+
     public static BackgroundMusic musicBackgroundService;
     HomeWatcher mHomeWatcher;
-    private int buttonEffect = R.raw.menu_sound;
 
     //setting music
     private boolean mIsBound = false; // link with activity
@@ -118,6 +119,7 @@ public class Start extends AppCompatActivity {
         mPlayer.start();
 
         Intent intent = new Intent(this, Information.class);
+        intent.putExtra("mode", "double");
         startActivity(intent);
     }
 

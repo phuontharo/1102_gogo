@@ -69,6 +69,7 @@ public class GuestScreen extends Fragment {
                 mPlayer.start();
 
                 Intent intent = new Intent(getActivity(), Information.class);
+                intent.putExtra("mode", "single");
                 startActivity(intent);
             }
         });
