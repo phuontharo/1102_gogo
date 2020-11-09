@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +17,9 @@ import static com.example.testimg.Start.musicBackgroundService;
 
 public class Setting extends AppCompatActivity {
     Spinner spinner;
+    String[] sizeBoard;
     int buttonEffect = R.raw.choose_sound;
+    EditText textSizeHP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,19 @@ public class Setting extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        textSizeHP = findViewById(R.id.editTextNumberDecimal);
+        sizeBoard = getResources().getStringArray(R.array.board_size_array);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Values.boardSize = Integer.parseInt(sizeBoard[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -55,5 +72,9 @@ public class Setting extends AppCompatActivity {
 
         Intent intent = new Intent(this, Start.class);
         startActivity(intent);
+    }
+
+    void save(){
+        Values.HP = Integer.parseInt(textSizeHP.getText().toString());
     }
 }

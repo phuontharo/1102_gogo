@@ -89,8 +89,10 @@ public class Information extends AppCompatActivity {
     private void setScreenInformation(Player player) {
         inputName.setHint("Player " + (currentPlayer + 1));
         inputName.setText(player.getName());
-        if (currentPlayer == 0) possIMG = avatar1;
-        else possIMG = avatar2;
+        // Hồi sửa chỗ này nè ----possIMG = avatar1;
+        if (currentPlayer == 0) possIMG = 0;
+        else possIMG = 0;
+        //------- possIMG = avatar2
         avatar.setImageResource(player.getImgId());
         setImageForButton();
     }
@@ -113,7 +115,10 @@ public class Information extends AppCompatActivity {
     }
 
     private void setImageForButton() {
+        System.out.println("Pre IMG "+ preIMG);
+        System.out.println("Poss IMG "+ possIMG);
         preIMG = possIMG == 0 ? listImg.size() - 1 : possIMG - 1;
+        System.out.println("Pre IMG " + preIMG);
         btnPre.setImageResource(listImg.get(preIMG));
         btnPre.setImageBitmap(effectForPicture(((BitmapDrawable) btnPre.getDrawable()).getBitmap()));
         nextIMG = possIMG == listImg.size() - 1 ? 0 : possIMG + 1;

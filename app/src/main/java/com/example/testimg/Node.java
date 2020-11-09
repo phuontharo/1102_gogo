@@ -2,6 +2,7 @@ package com.example.testimg;
 
 import android.graphics.drawable.ColorDrawable;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.io.Serializable;
 
@@ -9,7 +10,8 @@ public class Node implements Serializable {
     private int id;
     private int x;
     private int y;
-    private Button button;
+    private ImageButton button;
+    private int value;
     private boolean isVisited;
 
     public int getId() {
@@ -20,11 +22,12 @@ public class Node implements Serializable {
         this.id = id;
     }
 
-    public Node(int id, int x, int y, Button button, boolean isVisited) {
+    public Node(int id, int x, int y, ImageButton button, int value, boolean isVisited) {
         this.id = id;
         this.x = x;
         this.y = y;
         this.button = button;
+        this.value = value;
         this.isVisited = isVisited;
     }
 
@@ -32,10 +35,6 @@ public class Node implements Serializable {
         this.id = id;
         this.x = x;
         this.y = y;
-    }
-    public int getColor(){
-        ColorDrawable color = (ColorDrawable) button.getBackground();
-        return color.getColor();
     }
 
     void setColorButton(int color){
@@ -57,11 +56,11 @@ public class Node implements Serializable {
         this.y = y;
     }
 
-    public Button getButton() {
+    public ImageButton getButton() {
         return button;
     }
 
-    public void setButton(Button button) {
+    public void setButton(ImageButton button) {
         this.button = button;
     }
 
@@ -71,5 +70,13 @@ public class Node implements Serializable {
 
     public void setVisited(boolean visited) {
         isVisited = visited;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

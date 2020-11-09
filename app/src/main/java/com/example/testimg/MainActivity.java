@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
@@ -28,6 +29,7 @@ import static com.example.testimg.Start.musicBackgroundService;
 //import static com.example.testimg.Start.musicBackgroundService;
 
 public class MainActivity extends AppCompatActivity {
+    ImageView curentChess;
     Node[][] board;
     TableLayout layout;
     int id = 0;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     int black = Color.BLACK;
     int white = Color.WHITE;
     int yellow = Color.YELLOW;
-    int defaultColor = black;
+    int defaultColor = Values.imgBlack;
     int hpLost = 0;
     ImageView player1_avatar, player2_avatar;
     ProgressBar progressBar1, progressBar2;
@@ -88,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     void subHP() {
-        if (defaultColor == black) {
-            changeSizeHP(progressBar1);
-        } else if (defaultColor == white) {
+        if (defaultColor == Values.imgBlack) {
             changeSizeHP(progressBar2);
+        } else if (defaultColor == Values.imgWhite) {
+            changeSizeHP(progressBar1);
         }
     }
 
@@ -101,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                board[i][j].setColorButton(yellow);
+                board[i][j].getButton().setImageResource(Values.imgEmpty);
+                board[i][j].setValue(Values.enptyValue);
             }
         }
         progressBar1.setProgress(100);
@@ -121,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setting() {
+        curentChess = findViewById(R.id.curentChess);
         progressBar1 = findViewById(R.id.progressBar1);
         progressBar2 = findViewById(R.id.progressBar2);
         player1_avatar = findViewById(R.id.avatar_player1);
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         textViewName2 = findViewById(R.id.textViewName2);
         textTime1 = findViewById(R.id.textTime1);
         textTime2 = findViewById(R.id.textTime2);
-        board = new Node[10][10];
+        board = new Node[Values.boardSize][Values.boardSize];
         layout = findViewById(R.id.table);
         controller = new Controller(board);
         Bundle bundle = getIntent().getExtras();
@@ -141,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         player2_avatar.setImageResource(player2.getImgId());
         progressBar1.setProgress(100);
         progressBar2.setProgress(100);
+        curentChess.setImageResource(defaultColor);
         Init();
         startTimer();
 
@@ -154,42 +159,45 @@ public class MainActivity extends AppCompatActivity {
             for (int j = 0; j < board[0].length; j++) {
                 final int x = i;
                 final int y = j;
-                final Button button = new Button(this);
+                final ImageButton button = new ImageButton(this);
                 button.setId(id);
-                button.setText("+");
+                button.setImageResource(Values.imgEmpty);
                 TableRow.LayoutParams layout = new TableRow.LayoutParams(110, 110);
                 button.setLayoutParams(layout);
-                button.setBackgroundColor(yellow);
-
+                final Node node = new Node(id, i, j, button, Values.enptyValue,false);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MediaPlayer mPlayer = MediaPlayer.create(getApplication(), playSound);
-                        mPlayer.start();
+                        if(node.getValue() == Values.enptyValue){
+                            MediaPlayer mPlayer = MediaPlayer.create(getApplication(), playSound);
+                            mPlayer.start();
+                            button.setImageResource(defaultColor);
+                            node.setValue(defaultColor);
+                            hpLost = controller.execute(x, y);
+                            if (hpLost != 0) {
+                                subHP();
+                            }
+                            if (defaultColor == Values.imgBlack) {
 
-                        button.setBackgroundColor(defaultColor);
-                        hpLost = controller.execute(x, y);
-                        if (hpLost > 0) {
-                            subHP();
-                        }
-
-                        if (defaultColor == black) {
-                            pauseTimer();
-                            //                            if (!isWhiteTimeRunning.get()) {
+                                pauseTimer();
+                                //                            if (!isWhiteTimeRunning.get()) {
 //                                isBlackTimeRunning.set(false);
 //                                doStartTimeWhite();
 //                            }
-                        } else {
-                            startTimer();
+                            } else {
+
+                                startTimer();
 //                            if (!isBlackTimeRunning.get()) {
 //                                isWhiteTimeRunning.set(false);
 //                                doStartTimeBlack();
 //                            }
+                            }
+                            defaultColor = defaultColor == Values.imgBlack ? Values.imgWhite : Values.imgBlack;
+                            curentChess.setImageResource(defaultColor);
                         }
-                        defaultColor = defaultColor == black ? white : black;
                     }
                 });
-                Node node = new Node(id, i, j, button, false);
+
                 board[i][j] = node;
                 row.addView(button);
             }

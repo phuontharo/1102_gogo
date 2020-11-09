@@ -7,9 +7,6 @@ import java.util.ArrayList;
 
 public class Controller {
     Node[][] table;
-    int black = Color.BLACK;
-    int white = Color.WHITE;
-    int yellow = Color.YELLOW;
 
     public Controller(Node[][] table) {
         this.table = table;
@@ -17,21 +14,22 @@ public class Controller {
 
     int execute(int x, int y){
         Node node = table[x][y];
-        System.out.println("Node at :"  +x + ":"+ y);
         ArrayList<Node> listNode = allOppositeNode(node);
-//        if(listNode.size() == 4){
-//            node.setColorButton(yellow);
-//            return;
-//        }
         for (int i = 0; i < listNode.size(); i++) {
             ArrayList<Node> tempList = new ArrayList<>();
             getGraphs(listNode.get(i), tempList);
             boolean isDeath = checkGraphsDeath(tempList);
             if (isDeath) {
-                changeValue(tempList, yellow);
-                System.out.println("HPPP : "+ tempList.size());
+                changeValue(tempList, Values.deathValue);
                 return tempList.size();
             }
+        }
+        ArrayList<Node> selfKill = new ArrayList<>();
+        getGraphs(node, selfKill);
+        boolean isSelfKill = checkGraphsDeath(selfKill);
+        if(isSelfKill){
+            changeValue(selfKill, Values.deathValue);
+            return 0- selfKill.size();
         }
         return 0;
 
@@ -41,10 +39,10 @@ public class Controller {
     ArrayList<Node> allOppositeNode(Node node) {
         ArrayList<Node> result = new ArrayList<>();
         ArrayList<Node> list = allNodeAround(node);
-        int value = node.getColor();
+        int value = node.getValue();
         for (int i = 0; i < list.size(); i++) {
             Node thisNode = list.get(i);
-            if (thisNode.getColor() != yellow && thisNode.getColor() != value) {
+            if (thisNode.getValue()!= Values.enptyValue && thisNode.getValue() != value) {
                 result.add(thisNode);
             }
         }
@@ -82,12 +80,11 @@ public class Controller {
         for (int i = 0; i < graphs.size(); i++) {
             ArrayList<Node> aroundNode = allNodeAround(graphs.get(i));
             for (int j = 0; j < aroundNode.size(); j++) {
-                if (aroundNode.get(j).getColor() == yellow) {
+                if (aroundNode.get(j).getValue() == Values.enptyValue) {
                     return false;
                 }
             }
         }
-        System.out.println("true");
         return true;
     }
 
@@ -98,19 +95,19 @@ public class Controller {
         ArrayList<Node> arround = allNodeAround(node);
         for (int i = 0; i < arround.size(); i++) {
             Node thisNode = arround.get(i);
-            Button butt = thisNode.getButton();
-
-            if (!thisNode.isVisited() && thisNode.getColor() == node.getColor()) {
+            if (!thisNode.isVisited() && thisNode.getValue() == node.getValue()) {
                 getGraphs(thisNode, result);
             }
         }
         node.setVisited(false);
     }
 
+
     // Đổi giá trị
     void changeValue(ArrayList<Node> graphs, int value) {
         for (int i = 0; i < graphs.size(); i++) {
-            graphs.get(i).setColorButton(value);
+            graphs.get(i).getButton().setImageResource(Values.imgEmpty);
+            graphs.get(i).setValue(value);
         }
     }
 
